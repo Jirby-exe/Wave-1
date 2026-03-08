@@ -1,7 +1,16 @@
-function SubmitButton() {
+//Define 'type'
+type SubmitButtonProps = {
+  isSubmitting: boolean;
+};
+
+function SubmitButton({ isSubmitting }: SubmitButtonProps) {
   return (
-    <button aria-label="Submti" type="button">
-      Submit
+    <button
+      aria-label={isSubmitting ? "Submitting..." : "Submit"}
+      type="submit"
+      disabled={isSubmitting}
+    >
+      {isSubmitting ? "Submitting..." : "Submit"}
     </button>
   );
 }
