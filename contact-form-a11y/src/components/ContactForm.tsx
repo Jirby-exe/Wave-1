@@ -1,3 +1,4 @@
+//Owns form data and validation logic, passes down to children as props
 import { useState } from "react";
 import TextInput from "./TextInput";
 import CheckboxFields from "./CheckboxFields";
@@ -65,6 +66,15 @@ function ContactForm() {
         onBlur={handleBlur}
         label="Last Name"
         error={errors.lastName}
+      />
+      
+      <TextInput
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        label="Email"
+        error={errors.email}
       />
 
       <CheckboxFields />
