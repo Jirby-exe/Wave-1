@@ -1,28 +1,76 @@
-//File intended to host state and submit logic - "brain" of form
 import { useState } from "react";
-//import SubmitButton from "./SubmitButton";
+import TextInput from "./TextInput";
+import CheckboxFields from "./CheckboxFields";
+import SubmitButton from "./SubmitButton";
+import type { ContactFormData, FieldName } from "../types";
 
-type FormData = {
-  name: string;
-  email: string;
-  phone: string;
-};
-
-export function ContactForms() {
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
+function ContactForm() {
+  const [formData, setFormData] = useState<ContactFormData>({
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
   });
 
-  function handleChange(name: string, value: string) {
+  const [errors, setErrors] = useState<Record<FieldName, string>>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  });
+
+  function validateField(name: FieldName, value: string) {
+  if (!value.trim()) {
+    return "This field is required";
+  }
+
+  if (name === "email" && !value.includes("@")) {
+    return "Please enter a valid email";
+  }
+
+  return "";
+}
+
+  function handleChange(name: FieldName, value: string) {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   }
 
-  return { formData, handleChange };
+  function handleBlur(name: FieldName) {
+    const value = formData[name];
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validateField(name, value),
+    }));
+  }
+
+  return (
+    <div>
+      <TextInput
+        name="firstName"
+        value={formData.firstName}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        label="First Name"
+        error={errors.firstName}
+      />
+
+      <TextInput
+        name="lastName"
+        value={formData.lastName}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        label="Last Name"
+        error={errors.lastName}
+      />
+
+      <CheckboxFields />
+      <SubmitButton isSubmitting={false} />
+    </div>
+  );
 }
 
-export default ContactForms;
+export default ContactForm;
