@@ -1,14 +1,5 @@
 //Display one text input and report user actions to parent component via props
-import type { FieldName } from "../types";
-
-type TextInputProps = {
-  value: string;
-  name: FieldName;
-  label: string;
-  error?: string;
-  onChange: (name: FieldName, value: string) => void;
-  onBlur: (name: FieldName) => void;
-};
+import type { TextInputProps } from "../types";
 
 function TextInput({
   value,

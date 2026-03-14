@@ -1,7 +1,5 @@
 //Define 'type'
-type SubmitButtonProps = {
-  isSubmitting: boolean;
-};
+import type { SubmitButtonProps } from "../types";
 
 function SubmitButton({ isSubmitting }: SubmitButtonProps) {
   return (
