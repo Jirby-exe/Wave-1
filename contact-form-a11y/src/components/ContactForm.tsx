@@ -6,6 +6,8 @@ import SubmitButton from "./SubmitButton";
 import type { ContactFormData, FieldName } from "../types";
 
 function ContactForm() {
+  //Taking in form data as an object instead of individual pieces of state for each field, and using a single change handler that updates the appropriate field based on the name attribute of the input. 
+  //This allows us to easily add more fields in the future without needing to add more state variables or change handlers.
   const [formData, setFormData] = useState<ContactFormData>({
     firstName: "",
     lastName: "",
@@ -13,6 +15,8 @@ function ContactForm() {
     phone: "",
   });
 
+  //Errors state is also an object with the same keys as formData
+  //which allows us to easily show error messages for each field.
   const [errors, setErrors] = useState<Record<FieldName, string>>({
     firstName: "",
     lastName: "",
@@ -20,6 +24,8 @@ function ContactForm() {
     phone: "",
   });
 
+  //function that takes in a field name and value and returns an error message if the value is invalid, 
+  //or an empty string if it's valid. This allows us to centralize our validation logic and easily reuse it for both onBlur validation and form submission validation.
   function validateField(name: FieldName, value: string) {
   if (!value.trim()) {
     return "This field is required";
@@ -32,6 +38,7 @@ function ContactForm() {
   return "";
 }
 
+  //Handle changes to inputs and update form data state
   function handleChange(name: FieldName, value: string) {
     setFormData((prev) => ({
       ...prev,
@@ -47,7 +54,8 @@ function ContactForm() {
       [name]: validateField(name, value),
     }));
   }
-
+  
+  /*Need to add submit handler that validates all fields and shows errors if any, otherwise submits form data to backend. Also need to add isSubmitting state to disable submit button while request is in flight.*/ 
   return (
     <div>
       <TextInput
