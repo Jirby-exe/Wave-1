@@ -10,7 +10,7 @@ function CheckboxFields() {
       <label className="form-check-label" htmlFor="inlineCheckbox1">
         Do you agree to our Terms and Conditions?
       </label>
-    </>
+    </> 
   );
 }
 
