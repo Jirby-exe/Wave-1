@@ -6,4 +6,19 @@ export type ContactFormData = {
   phone: string;
 };
 
+export type TextInputProps = {
+  value: string;
+  name: FieldName;
+  label: string;
+  error?: string;
+  type?: string;
+  onChange: (name: FieldName, value: string) => void;
+  onBlur: (name: FieldName) => void;
+};
+
+export type SubmitButtonProps = {
+  isSubmitting: boolean;
+};
+
+//FieldName must be a firstName/lastName/email/phone
 export type FieldName = keyof ContactFormData;

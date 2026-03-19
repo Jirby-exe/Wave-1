@@ -49,7 +49,6 @@ function ContactForm() {
 
     return "";
   }
-
   function handleChange(name: FieldName, value: string) {
     setFormData((prev) => ({
       ...prev,
