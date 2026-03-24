@@ -5,6 +5,7 @@ import TextInput from "./TextInput";
 import CheckboxFields from "./CheckboxFields";
 import SubmitButton from "./SubmitButton";
 import type { ContactFormData, FieldName } from "../types";
+import ErrorLinks from "./ErrorLinks";
 
 function ContactForm() {
   //formData state is an object with keys firstName, lastName, email, phone and values of type string
@@ -24,6 +25,10 @@ function ContactForm() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  //hasErrors is true if any of the error messages in the errors state object are non-empty strings
+  const hasErrors = Object.values(errors).some((error) => error);
+
 
   //returns error string if field is empty or if email field has text and it doesn't include @ symbol
   function validateField(name: FieldName, value: string) {
@@ -49,6 +54,7 @@ function ContactForm() {
 
     return "";
   }
+  
   function handleChange(name: FieldName, value: string) {
     setFormData((prev) => ({
       ...prev,
@@ -65,7 +71,7 @@ function ContactForm() {
     }));
   }
 
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     //Prevent default browser behavior of page refresh
     event.preventDefault();
 
@@ -87,7 +93,7 @@ function ContactForm() {
 
   return (
     <div>
-      <div className="error-container" tabIndex={-1}></div>
+      {hasErrors && <ErrorLinks errors={errors} />}
       <form onSubmit={handleSubmit}>
         <TextInput
           name="firstName"

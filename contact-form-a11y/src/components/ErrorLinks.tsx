@@ -1,7 +1,21 @@
-/*import type { FieldName } from "../types";
+import type { ErrorLinkProps } from "../types";
 
-function ErrorLinks() {
-  return;
-}*/
-//This file must take the error messages
-//from ContactForm and display them in a list at the top of the form with links that jump to the corresponding field when clicked. This component should be rendered in ContactForm and receive the error messages as props.
+function ErrorLinks({ errors }: ErrorLinkProps) {
+  return (
+    <div>
+      <h2>Errors:</h2>
+      <ul>
+        {Object.entries(errors).map(([field, error]) => {
+          if (!error) return null;
+          return (
+            <li key={field}>
+              <a href={`#${field}`}>{error}</a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+export default ErrorLinks;
