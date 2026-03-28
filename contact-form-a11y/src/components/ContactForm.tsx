@@ -7,6 +7,8 @@ import SubmitButton from "./SubmitButton";
 import type { ContactFormData, FieldName } from "../types";
 import ErrorLinks from "./ErrorLinks";
 
+
+
 function ContactForm() {
   //formData state is an object with keys firstName, lastName, email, phone and values of type string
   const [formData, setFormData] = useState<ContactFormData>({
@@ -93,8 +95,10 @@ function ContactForm() {
 
   return (
     <div>
-      {hasErrors && <ErrorLinks errors={errors} />}
-      <form onSubmit={handleSubmit}>
+      <div aria-live="polite" aria-atomic="true">
+        {hasErrors && <ErrorLinks errors={errors} />}
+      </div>
+      <form className="contact-form" onSubmit={handleSubmit}>
         <TextInput
           name="firstName"
           type="text"
